@@ -3,90 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chepkoilel Smart Navigation</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <script src="https://kit.fontawesome.com/a2e0e6ad1f.js" crossorigin="anonymous"></script>
-  <style>
-    #map { height: 75vh; }
-  </style>
-</head>
-<body class="bg-gray-100 font-sans">
+  <title>Smart City Navigation App</title>
 
-  <!-- Header -->
-  <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
-    <h1 class="text-2xl font-bold text-blue-600">Chepkoilel SmartNav</h1>
-    <input type="text" placeholder="Search location..." class="border border-gray-300 px-4 py-2 rounded-lg w-1/3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="logo">
+      <img src="attacks.jpg" alt="City Logo" />
+      <h1>University of Eldoret Smart Navigation</h1>
+    </div>
+    <div class="search-container">
+      <input id="search-input" type="text" placeholder="Search e.g. 'University of Eldoret'" />
+      <button onclick="searchLocation()">Search</button>
+    </div>
   </header>
 
-  <div class="flex flex-col lg:flex-row">
-    <!-- Sidebar -->
-    <aside class="bg-white w-full lg:w-64 p-4 shadow-md">
-      <h2 class="text-xl font-semibold text-gray-700 mb-4">Categories</h2>
-      <ul class="space-y-3">
-        <li><a href="#" class="flex items-center gap-2 text-blue-600 hover:text-blue-800"><i class="fas fa-university"></i> Schools</a></li>
-        <li><a href="#" class="flex items-center gap-2 text-blue-600 hover:text-blue-800"><i class="fas fa-hospital"></i> Hospitals</a></li>
-        <li><a href="#" class="flex items-center gap-2 text-blue-600 hover:text-blue-800"><i class="fas fa-store"></i> Shops</a></li>
-        <li><a href="#" class="flex items-center gap-2 text-blue-600 hover:text-blue-800"><i class="fas fa-bus"></i> Transport</a></li>
-        <li><a href="#" class="flex items-center gap-2 text-blue-600 hover:text-blue-800"><i class="fas fa-tree"></i> Parks</a></li>
+  <!-- MAIN WRAPPER -->
+  <div class="app-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h2>City Services</h2>
+      <ul>
+        <li><a href="#">Hospitals</a></li>
+        <li><a href="#">Police Stations</a></li>
+        <li><a href="#">Education Centers</a></li>
+        <li><a href="#">Public Transport</a></li>
+        <li><a href="#">Emergency Help</a></li>
       </ul>
     </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-4">
-      <div id="map" class="rounded shadow"></div>
-
-      <button onclick="getUserLocation()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">
-        <i class="fas fa-location-arrow"></i> Your Location
-      </button>
-
-      <div class="mt-6 text-gray-600">
-        <h3 class="text-lg font-semibold">Info</h3>
-        <p>This is a prototype smart city navigation platform built using OpenStreetMap and Leaflet.js. Current location on map: <strong>University of Eldoret</strong>.</p>
-        <p class="mt-2">More POIs and routing features will be added in future updates.</p>
-      </div>
+    <!-- MAP AND STATUS -->
+    <main class="main-content">
+      <div id="map"></div>
+      <div id="status-bar">Searching for location...</div>
     </main>
+
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-white mt-6 p-4 text-center text-sm text-gray-500 border-t">
-    &copy; 2025 Chepkoilel SmartNav — Powered by OpenStreetMap & Leaflet
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 Mahat SmartNav. Powered by OpenStreetMap & Leaflet.</p>
   </footer>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    const map = L.map('map').setView([0.584353, 35.3084402], 16);
-
-    // Tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
-    }).addTo(map);
-
-    // Marker
-    L.marker([0.584353, 35.3084402])
-      .addTo(map)
-      .bindPopup('University of Eldoret')
-      .openPopup();
-
-    // User location button
-    function getUserLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          L.marker([lat, lon])
-            .addTo(map)
-            .bindPopup('You are here!')
-            .openPopup();
-          map.setView([lat, lon], 16);
-        }, () => {
-          alert("Location access denied.");
-        });
-      } else {
-        alert("Geolocation not supported.");
-      }
-    }
-  </script>
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
