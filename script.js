@@ -5,7 +5,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Load custom .geojson
-fetch('map.osm')
+fetch('chepkoilel.osm')
   .then(res => res.json())
   .then(data => {
     L.geoJSON(data).addTo(map);
