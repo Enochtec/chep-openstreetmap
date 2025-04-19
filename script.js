@@ -1,50 +1,65 @@
-const map = L.map('map').setView([-0.5167, 35.2833], 16);
+const map = L.map('map').setView([0.584353, 35.3084402], 15);
 
+// Load OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Load custom .geojson
-fetch('chepkoilel.osm')
-  .then(res => res.json())
-  .then(data => {
-    L.geoJSON(data).addTo(map);
-  });
-
-const locations = {
-  "Admin Block": [-0.5170, 35.2825],
-  "Library": [-0.5155, 35.2840],
-  "Hostel A": [-0.5162, 35.2850],
-  "Cafeteria": [-0.5150, 35.2830],
+// University of Eldoret marker
+const destination = {
+  name: "University of Eldoret",
+  lat: 0.584353,
+  lon: 35.3084402
 };
 
-let fromMarker, toMarker, currentRoute;
+L.marker([destination.lat, destination.lon])
+  .addTo(map)
+  .bindPopup(destination.name)
+  .openPopup();
 
-function findRoute() {
-  const fromVal = document.getElementById('from').value;
-  const toVal = document.getElementById('to').value;
+let userLocation = null;
 
-  if (!locations[fromVal] || !locations[toVal]) {
-    alert('⚠️ Please enter valid locations.');
-    return;
+// Geolocation to get current position
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      userLocation = [pos.coords.latitude, pos.coords.longitude];
+      L.marker(userLocation)
+        .addTo(map)
+        .bindPopup("You are here")
+        .openPopup();
+    },
+    err => {
+      console.error("Geolocation error:", err.message);
+    }
+  );
+} else {
+  alert("Geolocation is not supported by this browser.");
+}
+
+// Search + Route
+function searchLocation() {
+  const input = document.getElementById("search-input").value.toLowerCase();
+
+  if (
+    input.includes("university of eldoret") ||
+    input.includes("uoe") ||
+    input.includes("eldoret university")
+  ) {
+    if (!userLocation) {
+      alert("Enable location to get directions.");
+      return;
+    }
+
+    L.Routing.control({
+      waypoints: [
+        L.latLng(userLocation[0], userLocation[1]),
+        L.latLng(destination.lat, destination.lon)
+      ],
+      routeWhileDragging: false
+    }).addTo(map);
+  } else {
+    alert("Place not found. Try 'University of Eldoret'.");
   }
-
-  const fromCoords = locations[fromVal];
-  const toCoords = locations[toVal];
-
-  if (fromMarker) map.removeLayer(fromMarker);
-  if (toMarker) map.removeLayer(toMarker);
-  if (currentRoute) map.removeLayer(currentRoute);
-
-  fromMarker = L.marker(fromCoords, { title: 'Start' }).addTo(map);
-  toMarker = L.marker(toCoords, { title: 'Destination' }).addTo(map);
-
-  currentRoute = L.polyline([fromCoords, toCoords], {
-    color: '#0078ff',
-    weight: 6,
-    opacity: 0.8,
-    dashArray: '10,10'
-  }).addTo(map);
-
-  map.fitBounds([fromCoords, toCoords]);
 }
