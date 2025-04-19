@@ -1,5 +1,7 @@
-/* RESET CSS */
-* {
+/* =========================
+   Reset and Base Styles
+   ========================= */
+   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -8,223 +10,226 @@
   body {
     font-family: "Segoe UI", sans-serif;
     line-height: 1.6;
-    background-color: #f0f4f8;
+    background-color: #f7f9fc;
     color: #333;
   }
-
-  img{
-    border-radius: 40%;
-
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
+  
+  /* =========================
+     Global Layout Containers
+     ========================= */
+  .app-header,
+  .footer,
+  .app-wrapper {
+    width: 100%;
   }
   
-  /* HEADER */
+  /* =========================
+     Header Styles
+     ========================= */
   .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2563eb;
-    color: white;
     padding: 1rem 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1000;
   }
   
   .app-header .logo {
     display: flex;
     align-items: center;
+    gap: 1rem;
   }
   
   .app-header .logo img {
-    height: 40px;
-    margin-right: 15px;
+    width: 50px;
+    height: auto;
+    border-radius: 40%;
   }
   
-  .app-header h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
+  .app-header .logo h1 {
+    font-size: 1.8rem;
+    color: #2563eb;
   }
   
   .search-container {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
   
-  .search-container input {
+  .search-container input[type="text"] {
     padding: 0.6rem 1rem;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    width: 250px;
-    margin-right: 1rem;
+    width: 300px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search-container input[type="text"]:focus {
+    border-color: #2563eb;
+    outline: none;
   }
   
   .search-container button {
-    padding: 0.6rem 1rem;
+    padding: 0.65rem 1.2rem;
     border: none;
-    background-color: #1d4ed8;
-    color: white;
+    background: #2563eb;
+    color: #fff;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
+    font-weight: bold;
   }
   
   .search-container button:hover {
-    background-color: #2563eb;
+    background: #1d4ed8;
   }
   
-  /* MAIN CONTENT AREA */
+  /* =========================
+     App Wrapper Layout
+     ========================= */
   .app-wrapper {
     display: flex;
-    min-height: 100vh;
+    min-height: calc(100vh - 80px); /* Height minus header */
   }
   
+  /* =========================
+     Sidebar Styles
+     ========================= */
   .sidebar {
-    width: 250px;
-    background-color: #ffffff;
-    padding: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 80px;
-    height: 100vh;
+    background: #ffffff;
+    padding: 2rem 1rem;
+    width: 280px;
+    border-right: 1px solid #e5e7eb;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
   }
   
   .sidebar h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    color: #2563eb;
     margin-bottom: 1rem;
+    text-align: center;
   }
   
   .sidebar ul {
-    list-style: none;
+    list-style-type: none;
   }
   
   .sidebar ul li {
-    margin: 10px 0;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    transition: background 0.2s ease;
+    border-radius: 4px;
+  }
+  
+  .sidebar ul li:hover {
+    background: #f0f4ff;
   }
   
   .sidebar ul li a {
+    text-decoration: none;
     color: #333;
     font-size: 1rem;
     display: block;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
   }
   
-  .sidebar ul li a:hover {
-    background-color: #2563eb;
-    color: white;
-  }
-  
+  /* =========================
+     Main Content Styles
+     ========================= */
   .main-content {
     flex: 1;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 1rem;
   }
   
+  /* Map container */
   #map {
-    flex: 1;
-    height: 70vh;
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
   
+  /* Status bar below the map */
   #status-bar {
-    background-color: #2563eb;
-    color: white;
-    padding: 0.75rem;
-    text-align: center;
-    font-size: 1.2rem;
-  }
-  
-  /* FOOTER */
-  .footer {
-    background-color: #2563eb;
-    color: white;
-    text-align: center;
+    background: #ffffff;
     padding: 1rem;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    text-align: center;
   }
   
-  /* MEDIA QUERIES (RESPONSIVENESS) */
+  /* =========================
+     Footer Styles
+     ========================= */
+  .footer {
+    background: #ffffff;
+    text-align: center;
+    padding: 1rem 2rem;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+    color: #666;
+  }
   
-  /* Tablets (portrait and landscape) */
-  @media screen and (max-width: 768px) {
+  /* =========================
+     Media Queries (Responsiveness)
+     ========================= */
+  @media (max-width: 1024px) {
     .app-header {
       flex-direction: column;
       align-items: flex-start;
+      gap: 1rem;
     }
-  
     .search-container {
-      margin-top: 1rem;
       width: 100%;
     }
-  
-    .search-container input {
-      width: 80%;
-      margin-right: 0;
+    .search-container input[type="text"] {
+      width: 100%;
     }
+  }
   
+  @media (max-width: 768px) {
+    .app-wrapper {
+      flex-direction: column;
+    }
     .sidebar {
-      position: static;
       width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #e5e7eb;
       box-shadow: none;
-      padding: 1rem 0;
     }
-  
-    .sidebar ul {
-      display: flex;
-      flex-wrap: wrap;
+    .main-content {
+      padding: 1rem;
     }
+    #map {
+      height: 400px;
+    }
+  }
   
+  @media (max-width: 480px) {
+    .app-header .logo h1 {
+      font-size: 1.5rem;
+    }
+    .search-container input[type="text"] {
+      padding: 0.5rem;
+      width: 100%;
+    }
+    .search-container button {
+      padding: 0.5rem 0.8rem;
+    }
+    .sidebar h2 {
+      font-size: 1.3rem;
+    }
     .sidebar ul li {
-      margin: 10px 15px;
-    }
-  
-    .main-content {
-      height: auto;
-    }
-  
-    #map {
-      height: 60vh;
-    }
-  
-    #status-bar {
-      font-size: 1rem;
+      padding: 0.5rem 0.5rem;
+      font-size: 0.9rem;
     }
   }
-  
-  /* Small Screens (Phones in Portrait) */
-  @media screen and (max-width: 480px) {
-    .app-header h1 {
-      font-size: 1.2rem;
-    }
-  
-    .search-container input {
-      width: 70%;
-    }
-  
-    .sidebar {
-      display: none;
-    }
-  
-    .main-content {
-      margin-top: 20px;
-    }
-  
-    #map {
-      height: 60vh;
-    }
-  
-    #status-bar {
-      font-size: 1rem;
-    }
-  }
-  
   
