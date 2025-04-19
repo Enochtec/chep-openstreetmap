@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chepkoilel Smart City Nav</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="branding">🌍 Chepkoilel SmartNav</div>
+
+  <div id="nav-panel">
+    <h2>City Navigation</h2>
+
+    <div class="input-group">
+      <label for="from">🟢 From:</label>
+      <input type="text" id="from" list="locations" placeholder="Choose a place" />
+    </div>
+
+    <div class="input-group">
+      <label for="to">🔴 To:</label>
+      <input type="text" id="to" list="locations" placeholder="Destination" />
+    </div>
+
+    <button onclick="findRoute()">🚀 Get Route</button>
+
+    <datalist id="locations">
+      <option value="Admin Block">
+      <option value="Library">
+      <option value="Hostel A">
+      <option value="Cafeteria">
+    </datalist>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
